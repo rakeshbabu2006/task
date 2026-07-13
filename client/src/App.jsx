@@ -127,11 +127,18 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Expense Tracker</h1>
+      <header className="hero">
+        <div>
+          <p className="eyebrow">Smart money tracking</p>
+          <h1>Expense Tracker</h1>
+          <p className="hero-text">Stay on top of your income, expenses, and everyday balance in one calm workspace.</p>
+        </div>
+      </header>
+
       {message && <p className="message">{message}</p>}
 
       {!isLoggedIn ? (
-        <div className="card">
+        <div className="card auth-card">
           <div className="toggle">
             <button className={authMode === 'login' ? 'active' : ''} onClick={() => setAuthMode('login')}>Login</button>
             <button className={authMode === 'register' ? 'active' : ''} onClick={() => setAuthMode('register')}>Register</button>
@@ -162,12 +169,20 @@ function App() {
         </div>
       ) : (
         <>
-          <div className="card summary">
-            <h2>Summary</h2>
-            <p>Income: ${summary.totalIncome}</p>
-            <p>Expense: ${summary.totalExpense}</p>
-            <p>Balance: ${summary.balance}</p>
-            <button onClick={handleLogout}>Logout</button>
+          <div className="card summary-grid">
+            <div className="summary-card income">
+              <span>Income</span>
+              <strong>Rs:{summary.totalIncome}</strong>
+            </div>
+            <div className="summary-card expense">
+              <span>Expense</span>
+              <strong>Rs:{summary.totalExpense}</strong>
+            </div>
+            <div className="summary-card balance">
+              <span>Balance</span>
+              <strong>Rs:{summary.balance}</strong>
+            </div>
+            <button className="logout-btn" onClick={handleLogout}>Logout</button>
           </div>
 
           <div className="card">
@@ -217,7 +232,7 @@ function App() {
                 {transactions.map((item) => (
                   <li key={item._id}>
                     <div>
-                      <strong>{item.title}</strong> — ${item.amount} ({item.type})
+                      <strong>{item.title}</strong> — Rs:{item.amount} ({item.type})
                       <div className="meta">{item.category || 'Uncategorized'}</div>
                     </div>
                     <div className="actions">
